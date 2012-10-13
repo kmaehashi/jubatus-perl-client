@@ -34,6 +34,14 @@ sub complete_row_from_data {
   return new Jubatus::Recommender::Datum(@$res);
 }
 
+sub similar_row_from_id {
+  my ($self, $name, $id, $size) = @_;
+  my $res = $self->{'client'}->call(similar_row_from_id => [
+      $name, $id, $size
+    ])->recv;
+  return $res;
+}
+
 sub similar_row_from_data {
   my ($self, $name, $data, $size) = @_;
   my $res = $self->{'client'}->call(similar_row_from_data => [
