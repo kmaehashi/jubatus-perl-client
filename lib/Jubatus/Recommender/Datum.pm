@@ -1,8 +1,8 @@
 package Jubatus::Recommender::Datum;
 
 sub new {
-  my ($class) = @_;
-  my $self = {string_values => [], num_values => []};
+  my ($class, $string_values, $num_values) = @_;
+  my $self = {string_values => $string_values || [], num_values => $num_values || []};
   return bless $self, $class;
 }
 
@@ -13,10 +13,7 @@ sub to_msgpack {
 
 sub from_msgpack {
   my ($class, $ref) = @_;
-  my $datum = new Jubatus::Recommender::Datum();
-  $datum->{'string_values'} = $$ref[0];
-  $datum->{'num_values'} = $$ref[1];
-  return $datum;
+  return new Jubatus::Recommender::Datum(@$ref);
 }
 
 1;
