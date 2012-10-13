@@ -53,7 +53,7 @@ sub similar_row_from_data {
 sub decode_row {
   my ($self, $name, $id) = @_;
   my $res = $self->{'client'}->call(decode_row => [
-      $name, $name, $id
+      $name, $id
     ])->recv;
   return new Jubatus::Recommender::Datum(@$res);
 }
