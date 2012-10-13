@@ -11,9 +11,4 @@ sub to_msgpack {
   return [$self->{'string_values'}, $self->{'num_values'}];
 }
 
-sub from_msgpack {
-  my ($class, $ref) = @_;
-  return new Jubatus::Recommender::Datum(@$ref);
-}
-
 1;
