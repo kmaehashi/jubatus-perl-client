@@ -1,4 +1,4 @@
-package Jubatus::ConfigData;
+package Jubatus::Recommender::ConfigData;
 
 sub new {
   my ($class, $method, $converter) = @_;

@@ -4,49 +4,76 @@ use strict;
 use warnings;
 use utf8;
 
-use Jubatus::ConfigData;
+use Data::Dumper;
+
 use Jubatus::Recommender::Client;
+use Jubatus::Recommender::ConfigData;
 use Jubatus::Recommender::Datum;
 
-my $name = "test";
-my $client = new Jubatus::Recommender::Client("127.0.0.1", 9199);
-my $config = new Jubatus::ConfigData("lsh", get_converter());
+my ($name, $host, $port) = ("test", "127.0.0.1", 9199);
+my $client = new Jubatus::Recommender::Client($host, $port);
+my $config = new Jubatus::Recommender::ConfigData("lsh", get_converter());
 
 $client->set_config($name, $config);
 
 my $datum = new Jubatus::Recommender::Datum();
-my @datum_nv;
+my $datum_nv;
 
-# update: user1
-@datum_nv = ();
-push (@datum_nv, ["movie1", 1.7]);
-push (@datum_nv, ["movie2", 4.9]);
-$datum->{'num_values'} = \@datum_nv;
+# update_row: user1
+$datum_nv = [];
+push @$datum_nv, ["movie1", 1.7];
+push @$datum_nv, ["movie2", 4.9];
+$datum->{'num_values'} = $datum_nv;
 $client->update_row($name, "user1", $datum);
 
-# update: user2
-@datum_nv = ();
-push (@datum_nv, ["movie1", 5.0]);
-push (@datum_nv, ["movie2", 3.1]);
-$datum->{'num_values'} = \@datum_nv;
+# update_row: user2
+$datum_nv = [];
+push @$datum_nv, ["movie1", 5.0];
+push @$datum_nv, ["movie2", 3.1];
+$datum->{'num_values'} = $datum_nv;
 $client->update_row($name, "user2", $datum);
 
-# analyze: user3
-@datum_nv = ();
-push (@datum_nv, ["movie1", 4.9]);
-$datum->{'num_values'} = \@datum_nv;
-my $result_ref = $client->similar_row_from_data($name, $datum, 2);
-my @result = @$result_ref;
+# similar_row_from_data: user3
+$datum_nv = [];
+push @$datum_nv, ["movie1", 4.9];
+$datum->{'num_values'} = $datum_nv;
+my $result_user3 = $client->similar_row_from_data($name, $datum, 2);
 
-foreach my $ref (@result) {
+print "-- similar_row_from_data(user3) --\n";
+foreach my $ref (@$result_user3) {
     my @elem = @$ref;
-    print "result: " . $elem[0] . " = " . $elem[1] . "\n";
+    print "recommended user: " . $elem[0] . " (similarity: " . $elem[1] . ")\n";
 }
+print "\n";
 
-sub get_converter {
-    local $/;
-    return <DATA>;
-}
+# complete_row_from_data: user3
+$datum_nv = [];
+push @$datum_nv, ["movie1", 1.7];
+$datum->{'num_values'} = $datum_nv;
+my $result_completed = $client->complete_row_from_data($name, $datum);
+
+print "-- complete_row_from_data --\n";
+print Dumper($result_completed) . "\n";
+
+# l2norm
+my $result_l2norm = $client->l2norm($name, $datum);
+print "-- l2norm --\n";
+print $result_l2norm . "\n\n";
+
+# decode_row: user2
+my $result_decode_ref = $client->decode_row($name, "user2");
+
+print "-- decode_row(user2) --\n";
+print Dumper($result_decode_ref) . "\n";
+
+# get_all_rows
+my $all_rows = $client->get_all_rows($name);
+
+print "-- get_all_rows --\n";
+print Dumper($all_rows) . "\n";
+
+sub get_converter { local $/; return <DATA>; }
+
 __DATA__
 {
   "string_filter_types": {},
