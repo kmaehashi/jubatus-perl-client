@@ -26,12 +26,18 @@ push @$datum_nv, ["movie2", 4.9];
 $datum->{'num_values'} = $datum_nv;
 $client->update_row($name, "user1", $datum);
 
+print "-- update_row(user1) --\n";
+print Dumper($datum) . "\n";
+
 # update_row: user2
 $datum_nv = [];
 push @$datum_nv, ["movie1", 5.0];
 push @$datum_nv, ["movie2", 3.1];
 $datum->{'num_values'} = $datum_nv;
 $client->update_row($name, "user2", $datum);
+
+print "-- update_row(user2) --\n";
+print Dumper($datum) . "\n";
 
 # similar_row_from_data: user3
 $datum_nv = [];
@@ -40,6 +46,7 @@ $datum->{'num_values'} = $datum_nv;
 my $result_user3 = $client->similar_row_from_data($name, $datum, 2);
 
 print "-- similar_row_from_data(user3) --\n";
+print Dumper($datum);
 foreach my $ref (@$result_user3) {
     my @elem = @$ref;
     print "recommended user: " . $elem[0] . " (similarity: " . $elem[1] . ")\n";
@@ -53,12 +60,18 @@ $datum->{'num_values'} = $datum_nv;
 my $result_completed = $client->complete_row_from_data($name, $datum);
 
 print "-- complete_row_from_data --\n";
+print Dumper($datum) . "\n";
 print Dumper($result_completed) . "\n";
 
 # l2norm
+$datum_nv = [];
+push @$datum_nv, ["movie1", 3.0];
+push @$datum_nv, ["movie2", 5.0];
+$datum->{'num_values'} = $datum_nv;
 my $result_l2norm = $client->l2norm($name, $datum);
 print "-- l2norm --\n";
-print $result_l2norm . "\n\n";
+print Dumper($datum);
+print "l2norm = " . $result_l2norm . "\n\n";
 
 # decode_row: user2
 my $result_decode_ref = $client->decode_row($name, "user2");
@@ -81,7 +94,7 @@ __DATA__
   "num_filter_types": {},
   "num_filter_rules": [],
   "string_types": {},
-  "string_rules": [],
+  "string_rules": [{"key": "*", "type" : "str", "sample_weight": "bin", "global_weight" : "bin"}],
   "num_types": {},
   "num_rules": [{"key" : "*", "type" : "num"}]
 }
