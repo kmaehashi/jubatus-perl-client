@@ -2,7 +2,7 @@ package Jubatus::Recommender::Datum;
 
 sub new {
   my ($class, $string_values, $num_values) = @_;
-  my $self = {string_values => $string_values || [], num_values => $num_values || []};
+  my $self = {string_values => $string_values, num_values => $num_values};
   return bless $self, $class;
 }
 

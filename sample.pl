@@ -16,7 +16,7 @@ my $config = new Jubatus::Recommender::ConfigData("lsh", get_converter());
 
 $client->set_config($name, $config);
 
-my $datum = new Jubatus::Recommender::Datum();
+my $datum = new Jubatus::Recommender::Datum([], []);
 my $datum_nv;
 
 # update_row: user1

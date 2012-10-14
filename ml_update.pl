@@ -20,7 +20,7 @@ $r->set_config($NAME, $config);
 
 sysopen (my $fh, "./dat/ml-100k/u.data", O_RDONLY) || die "cannot open data file";
 
-my $d = new Jubatus::Recommender::Datum();
+my $d = new Jubatus::Recommender::Datum([], []);
 my $n = 0;
 while (<$fh>) {
     my ($userid, $movieid, $rating, $mtime) = split;
@@ -28,7 +28,7 @@ while (<$fh>) {
     if ($n % 1000 == 0) {
         print $n, "\n";
     }
-    push @$num_values, [$movieid, $rating/1.0];
+    push @$num_values, [$movieid, $rating/1.0]; # convert $rating into double
     $d->{'num_values'} = $num_values;
     $r->update_row($NAME, $userid, $d);
     $n++;
