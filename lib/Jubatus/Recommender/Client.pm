@@ -74,4 +74,28 @@ sub l2norm {
   return $res;
 }
 
+sub save {
+  my ($self, $name, $id) = @_;
+  my $res = $self->{'client'}->call(save => [
+      $name, $id
+    ])->recv;
+  return $res;
+}
+
+sub load {
+  my ($self, $name, $id) = @_;
+  my $res = $self->{'client'}->call(load => [
+      $name, $id
+    ])->recv;
+  return $res;
+}
+
+sub get_status {
+  my ($self, $name) = @_;
+  my $res = $self->{'client'}->call(get_status => [
+      $name
+    ])->recv;
+  return $res;
+}
+
 1;
