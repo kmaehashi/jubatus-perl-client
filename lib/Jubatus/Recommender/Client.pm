@@ -31,7 +31,7 @@ sub complete_row_from_data {
   my $res = $self->{'client'}->call(complete_row_from_data => [
       $name, $dat->to_msgpack()
     ])->recv;
-  return new Jubatus::Recommender::Datum(@$res);
+  return Jubatus::Recommender::Datum->new(@$res);
 }
 
 sub similar_row_from_id {
@@ -55,7 +55,7 @@ sub decode_row {
   my $res = $self->{'client'}->call(decode_row => [
       $name, $id
     ])->recv;
-  return new Jubatus::Recommender::Datum(@$res);
+  return Jubatus::Recommender::Datum->new(@$res);
 }
 
 sub get_all_rows {
