@@ -69,8 +69,8 @@ sub get_all_rows {
 sub l2norm {
   my ($self, $name, $d) = @_;
   my $res = $self->{'client'}->call(l2norm => [
-    $name, $d->to_msgpack()
-  ])->recv;
+      $name, $d->to_msgpack()
+    ])->recv;
   return $res;
 }
 
