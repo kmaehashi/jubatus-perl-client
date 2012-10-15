@@ -1,7 +1,8 @@
-#!/usr/bin/perl -Ilib/
+#!/usr/bin/perl
 
 use strict;
 use warnings;
+use lib "lib";
 
 use Data::Dumper;
 

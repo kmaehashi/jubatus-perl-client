@@ -1,8 +1,8 @@
-#!/usr/bin/perl -Ilib/
+#!/usr/bin/perl
 
 use strict;
 use warnings;
-use utf8;
+use lib "lib";
 
 use Data::Dumper;
 
