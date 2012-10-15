@@ -23,7 +23,7 @@ my $datum_nv;
 $datum_nv = [];
 push @$datum_nv, ["movie1", 1.7];
 push @$datum_nv, ["movie2", 4.9];
-$datum->{'num_values'} = $datum_nv;
+$datum->{num_values} = $datum_nv;
 $client->update_row($name, "user1", $datum);
 
 print "-- update_row(user1) --\n";
@@ -33,7 +33,7 @@ print Dumper($datum) . "\n";
 $datum_nv = [];
 push @$datum_nv, ["movie1", 5.0];
 push @$datum_nv, ["movie2", 3.1];
-$datum->{'num_values'} = $datum_nv;
+$datum->{num_values} = $datum_nv;
 $client->update_row($name, "user2", $datum);
 
 print "-- update_row(user2) --\n";
@@ -42,7 +42,7 @@ print Dumper($datum) . "\n";
 # similar_row_from_data: user3
 $datum_nv = [];
 push @$datum_nv, ["movie1", 4.9];
-$datum->{'num_values'} = $datum_nv;
+$datum->{num_values} = $datum_nv;
 my $result_user3 = $client->similar_row_from_data($name, $datum, 2);
 
 print "-- similar_row_from_data(user3) --\n";
@@ -56,7 +56,7 @@ print "\n";
 # complete_row_from_data: user3
 $datum_nv = [];
 push @$datum_nv, ["movie1", 1.7];
-$datum->{'num_values'} = $datum_nv;
+$datum->{num_values} = $datum_nv;
 my $result_completed = $client->complete_row_from_data($name, $datum);
 
 print "-- complete_row_from_data --\n";
@@ -67,7 +67,7 @@ print Dumper($result_completed) . "\n";
 $datum_nv = [];
 push @$datum_nv, ["movie1", 3.0];
 push @$datum_nv, ["movie2", 5.0];
-$datum->{'num_values'} = $datum_nv;
+$datum->{num_values} = $datum_nv;
 my $result_l2norm = $client->l2norm($name, $datum);
 print "-- l2norm --\n";
 print Dumper($datum);

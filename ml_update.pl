@@ -29,7 +29,7 @@ while (<$fh>) {
         print $n, "\n";
     }
     push @$num_values, [$movieid, $rating/1.0]; # convert $rating into double
-    $d->{'num_values'} = $num_values;
+    $d->{num_values} = $num_values;
     $r->update_row($NAME, $userid, $d);
     $n++;
 }

@@ -8,7 +8,7 @@ sub new {
 
 sub to_msgpack {
   my ($self) = @_;
-  return [$self->{'string_values'}, $self->{'num_values'}];
+  return [$self->{string_values}, $self->{num_values}];
 }
 
 1;
