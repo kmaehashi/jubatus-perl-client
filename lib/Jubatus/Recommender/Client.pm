@@ -12,7 +12,7 @@ sub new {
 
 sub set_config {
   my ($self, $name, $c) = @_;
-  my $res = $self->{'client'}->call(set_config => [
+  my $res = $self->{client}->call(set_config => [
       $name, $c->to_msgpack()
     ])->recv;
   return $res;
@@ -20,7 +20,7 @@ sub set_config {
 
 sub update_row {
   my ($self, $name, $id, $d) = @_;
-  my $res = $self->{'client'}->call(update_row => [
+  my $res = $self->{client}->call(update_row => [
       $name, $id, $d->to_msgpack()
     ])->recv;
   return $res;
@@ -28,7 +28,7 @@ sub update_row {
 
 sub complete_row_from_id {
   my ($self, $name, $id) = @_;
-  my $res = $self->{'client'}->call(complete_row_from_id => [
+  my $res = $self->{client}->call(complete_row_from_id => [
       $name, $id
     ])->recv;
   return Jubatus::Recommender::Datum->new(@$res);
@@ -36,7 +36,7 @@ sub complete_row_from_id {
 
 sub complete_row_from_data {
   my ($self, $name, $dat) = @_;
-  my $res = $self->{'client'}->call(complete_row_from_data => [
+  my $res = $self->{client}->call(complete_row_from_data => [
       $name, $dat->to_msgpack()
     ])->recv;
   return Jubatus::Recommender::Datum->new(@$res);
@@ -44,7 +44,7 @@ sub complete_row_from_data {
 
 sub similar_row_from_id {
   my ($self, $name, $id, $size) = @_;
-  my $res = $self->{'client'}->call(similar_row_from_id => [
+  my $res = $self->{client}->call(similar_row_from_id => [
       $name, $id, $size
     ])->recv;
   return $res;
@@ -52,7 +52,7 @@ sub similar_row_from_id {
 
 sub similar_row_from_data {
   my ($self, $name, $data, $size) = @_;
-  my $res = $self->{'client'}->call(similar_row_from_data => [
+  my $res = $self->{client}->call(similar_row_from_data => [
       $name, $data->to_msgpack(), $size
     ])->recv;
   return $res;
@@ -60,7 +60,7 @@ sub similar_row_from_data {
 
 sub decode_row {
   my ($self, $name, $id) = @_;
-  my $res = $self->{'client'}->call(decode_row => [
+  my $res = $self->{client}->call(decode_row => [
       $name, $id
     ])->recv;
   return Jubatus::Recommender::Datum->new(@$res);
@@ -68,7 +68,7 @@ sub decode_row {
 
 sub get_all_rows {
   my ($self, $name) = @_;
-  my $res = $self->{'client'}->call(get_all_rows => [
+  my $res = $self->{client}->call(get_all_rows => [
       $name
     ])->recv;
   return $res;
@@ -76,7 +76,7 @@ sub get_all_rows {
 
 sub l2norm {
   my ($self, $name, $d) = @_;
-  my $res = $self->{'client'}->call(l2norm => [
+  my $res = $self->{client}->call(l2norm => [
       $name, $d->to_msgpack()
     ])->recv;
   return $res;
@@ -84,7 +84,7 @@ sub l2norm {
 
 sub save {
   my ($self, $name, $id) = @_;
-  my $res = $self->{'client'}->call(save => [
+  my $res = $self->{client}->call(save => [
       $name, $id
     ])->recv;
   return $res;
@@ -92,7 +92,7 @@ sub save {
 
 sub load {
   my ($self, $name, $id) = @_;
-  my $res = $self->{'client'}->call(load => [
+  my $res = $self->{client}->call(load => [
       $name, $id
     ])->recv;
   return $res;
@@ -100,7 +100,7 @@ sub load {
 
 sub get_status {
   my ($self, $name) = @_;
-  my $res = $self->{'client'}->call(get_status => [
+  my $res = $self->{client}->call(get_status => [
       $name
     ])->recv;
   return $res;
