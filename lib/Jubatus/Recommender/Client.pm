@@ -26,6 +26,14 @@ sub update_row {
   return $res;
 }
 
+sub complete_row_from_id {
+  my ($self, $name, $id) = @_;
+  my $res = $self->{'client'}->call(complete_row_from_id => [
+      $name, $id
+    ])->recv;
+  return Jubatus::Recommender::Datum->new(@$res);
+}
+
 sub complete_row_from_data {
   my ($self, $name, $dat) = @_;
   my $res = $self->{'client'}->call(complete_row_from_data => [
