@@ -1,1 +1,0 @@
-package Jubatus::Graph::Client;

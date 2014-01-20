@@ -1,1 +1,0 @@
-package Jubatus::Classifier::Client;
